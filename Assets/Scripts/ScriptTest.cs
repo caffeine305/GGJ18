@@ -12,14 +12,39 @@ public class ScriptTest : MonoBehaviour {
     public GameObject nodoSolo;
     GameObject[,] nodos = new GameObject[4,4];
 
+    float puntitos;
+    bool auxAlineacion;
+    int persistencia;
+    public Onda onda = new Onda();
+
     float score;
     public GameObject scoreText;
 
     void Start()
     {
+        initOnda();
+
         score = 0.0f;
         initRed();
         modifRed();
+    }
+
+
+    public bool calcAlign()
+    {
+        bool convertAlign;
+        int auxAlign = Random.Range(1, 100);
+
+        if (auxAlign < 50)
+        {
+            convertAlign = false;
+        }
+        else
+        {
+            convertAlign = true;
+        }
+
+        return convertAlign;
     }
 
     public void initRed()  //Esta función inicializa la muchedumbre
@@ -63,6 +88,18 @@ public class ScriptTest : MonoBehaviour {
         }
     }
 
+    public void initOnda()
+    {
+        puntitos = Random.Range(1.0f, 100.0f);
+        onda.setIntensidad(puntitos);
+
+        auxAlineacion = calcAlign();
+        onda.setAlign(auxAlineacion);
+
+        persistencia = Random.Range(1, 5);
+        onda.setDure(persistencia);
+    }
+
     private void OnMouseDown()
     {
         /*
@@ -80,23 +117,34 @@ public class ScriptTest : MonoBehaviour {
     }
 
 
+    float calculateScore()
+    {
+        float scoreCalculado;
+        scoreCalculado = 0;
+
+        
+        Debug.Log(scoreCalculado);
+
+        return scoreCalculado;
+    }
+
     public void AddScore(float newScoreValue)
     {
-        score += newScoreValue;
+        score = score + Mathf.RoundToInt(newScoreValue);
         //Aquí se tantea el puntaje 
         UpdateScore();
-        Debug.Log("Added! score is "+score);
+        //Debug.Log("Added! score is "+score);
     }
 
     void UpdateScore()
     {
-        scoreText.GetComponent<TextMesh>().text = "Score:" + score;
-        Debug.Log("Updated! Score is "+score);
+        scoreText.GetComponentInChildren<TextMesh>().text = "Score: " + score;
+        //Debug.Log("Updated! Score is "+score);
     }
 
     private void Update()
     {
-        Debug.Log("Fila: " + red[0,0].fila + " Columna: " + red[0,0].columna + " porcentaje: " + red[0,0].bondad + "%  Estatus: "+red[0,0].estatus);
+        //Debug.Log("Fila: " + red[0,0].fila + " Columna: " + red[0,0].columna + " porcentaje: " + red[0,0].bondad + "%  Estatus: "+red[0,0].estatus);
     }
 
 }
@@ -171,4 +219,60 @@ public class Elemento
         estatus = edo;
     }
 
+}
+
+public class Onda
+{
+    //atributos
+
+    bool alineacion; //Afecta distinto a buenos y malos
+    int duracion; //Contador de colisiones
+    float intensidad; //Afecta los puntos
+
+    //Métodos
+    public void setAlign(bool asignarAlign)
+    {
+        alineacion = asignarAlign;
+    }
+
+    public bool getAlign()
+    {
+        return alineacion;
+    }
+
+    public void setDure(int asignarDuracion)
+    {
+        duracion = asignarDuracion;
+    }
+
+    public int getDure()
+    {
+        return duracion;
+    }
+
+    public void setIntensidad(float asignInten)
+    {
+        intensidad = asignInten;
+    }
+
+    public float getIntensidad()
+    {
+        return intensidad;
+    }
+
+    //Constructores
+
+    public Onda()
+    {
+        alineacion = true;
+        duracion = 0;
+        intensidad = 0;
+    }
+
+    public Onda(bool algn, int dur, float intenso)
+    {
+        alineacion = algn;
+        duracion = dur;
+        intensidad = intenso;
+    }
 }

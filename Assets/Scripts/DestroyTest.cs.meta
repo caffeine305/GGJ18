@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 5dd05e04dc4423642b7f8834309e291c
-timeCreated: 1517039606
+timeCreated: 1517144184
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - waveObj: {fileID: 1791876047181848, guid: 9ed930ce07ca5a040813ed93d6ca0e42, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
