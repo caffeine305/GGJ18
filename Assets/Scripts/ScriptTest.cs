@@ -13,18 +13,19 @@ public class ScriptTest : MonoBehaviour {
     GameObject[,] nodos = new GameObject[4,4];
 
     float score;
-    public GUIText scoreText;
+    public GameObject scoreText;
 
     void Start()
     {
-        score = 0;
+        score = 0.0f;
         initRed();
+        modifRed();
     }
 
-    public void initRed()
+    public void initRed()  //Esta función inicializa la muchedumbre
     {
         Vector3 posicion = new Vector3(0.0f, 0.0f, 0.0f);
-        Vector3 offset = new Vector3(4.0f,4.0f,0.0f);
+        Vector3 offset = new Vector3(5.0f,5.0f,0.0f);
 
         for (int i = 0; i < fila; ++i)
         {
@@ -34,12 +35,31 @@ public class ScriptTest : MonoBehaviour {
                 float valorEstado = Random.Range(1, 100);
                 red[i,j] = new Elemento(i + 1,j + 1, nivelBondad, valorEstado);
 
-                posicion.x = (float) (i + 1) * 2;
-                posicion.y = (float) (j + 1) * 2;
-                transform.position = posicion;
-                nodos[i,j] = Instantiate(nodoSolo, transform.position - offset ,transform.rotation); 
+                    posicion.x = (float)(i + 1);
+                    posicion.y = (float)(j + 1);
+                    transform.position = posicion * 2;
+                    nodos[i, j] = Instantiate(nodoSolo, transform.position - offset, transform.rotation);
             }
             //auxCont += 4;
+        }
+    }
+
+    public void modifRed() //Esta función Recorta la muchedumbre
+    {
+        red[1, 0].estatus = 0;
+        red[2, 0].estatus = 0;
+        red[1, 2].estatus = 0;
+        red[2, 2].estatus = 0;
+        red[1, 3].estatus = 0;
+        red[2, 3].estatus = 0;
+
+        for (int i = 0; i < fila; ++i)
+        {
+            for (int j = 0; j < columna; ++j)
+            {
+                if (red[i, j].estatus == 0)
+                    Destroy(nodos[i, j]);
+            }    
         }
     }
 
@@ -53,12 +73,10 @@ public class ScriptTest : MonoBehaviour {
 
         //           this.gameObject.SetActive(false);
         //           loadWave.Pedo();
-        //           loadWave.SumarScore(valorScore);
         //           loadWave.UpdateEliminados(eliminado);
         //           loadWave.UpdateSpeed(vel);
         //           Destroy(this.gameObject, 2.0f);
-
-        // Debug.Log(verBondad);
+        // Debug.Log(verBondad);;
     }
 
 
@@ -67,11 +85,13 @@ public class ScriptTest : MonoBehaviour {
         score += newScoreValue;
         //Aquí se tantea el puntaje 
         UpdateScore();
+        Debug.Log("Added! score is "+score);
     }
 
     void UpdateScore()
     {
-        scoreText.text = "Score: " + score;
+        scoreText.GetComponent<TextMesh>().text = "Score:" + score;
+        Debug.Log("Updated! Score is "+score);
     }
 
     private void Update()

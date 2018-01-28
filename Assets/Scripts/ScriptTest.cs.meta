@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: d81f3b84677affc48aa81acfe5b9730c
-timeCreated: 1517019749
+timeCreated: 1517113627
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ola: {fileID: 1521512470296488, guid: 0ce995003b4caa648b2431c41bfd0276, type: 2}
+  - nodoSolo: {instanceID: 0}
+  - scoreText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

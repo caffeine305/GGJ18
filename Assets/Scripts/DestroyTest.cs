@@ -28,9 +28,13 @@ public class DestroyTest : MonoBehaviour {
         Vector3 aux = this.transform.position;
         //Debug.Log(aux);
 
-        int auxx = (int) (aux.x + 2);
-        int auxy = (int) (aux.y + 2);
+       // Debug.Log("x Original: " + aux.x + " y original: " + aux.y);
 
+        int auxx = (int) (aux.x + 3)/2;
+        int auxy = (int) (aux.y + 3)/2;
+         
+        Debug.Log("x ajustada: " + auxx + " y ajustada: " + auxy);
+ 
         Debug.Log("Bondad: " + scriptTest.red[auxx, auxy].getBondad());
         Debug.Log("Estado: " + scriptTest.red[auxx, auxy].getEstatus());
         isTouching = true;
